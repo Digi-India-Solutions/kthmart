@@ -1,0 +1,36 @@
+/* Responsive adjustments for product card */
+.productCard {
+    transition: transform 0.3s ease;
+  }
+  
+  .productCard:hover {
+    transform: translateY(-2px);
+  }
+  
+  @media (max-width: 1024px) {
+    .productCard {
+      p {
+        padding: 10px;
+      }
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .productCard h3 {
+      font-size: 0.875rem; /* smaller text */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .productCard {
+      padding: 8px;
+    }
+    .productCard h3 {
+      font-size: 0.75rem;
+    }
+    .productCard button {
+      padding: 0.5rem 0.5rem;
+      font-size: 0.75rem;
+    }
+  }
+  

@@ -1,0 +1,23 @@
+/* Hide scroll bar but keep scroll functionality */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+  
+  /* Responsive tweaks */
+  @media (max-width: 768px) {
+    .responsive {
+      gap: 8px !important;
+      padding: 10px 8px !important;
+    }
+  }
+  @media (max-width: 480px) {
+    .responsive {
+      flex-wrap: nowrap;
+      overflow-x: scroll;
+    }
+  }
+  

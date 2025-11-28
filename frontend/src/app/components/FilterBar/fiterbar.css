@@ -1,0 +1,33 @@
+/* Hide scroll bar but keep scroll functionality */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  /* Responsive Styling */
+  @media (max-width: 1024px) {
+    .filterResponsive {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      gap: 8px;
+      padding: 10px 8px;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .filterResponsive {
+      gap: 6px;
+      padding: 8px 6px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .filterResponsive {
+      gap: 5px;
+      padding: 6px 5px;
+    }
+  }
+  

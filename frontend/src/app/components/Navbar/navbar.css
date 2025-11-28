@@ -1,0 +1,168 @@
+/* ---------- Navbar Base Styles ---------- */
+.navbar {
+    border-bottom: 1px solid #eee;
+    font-family: 'Inter', sans-serif;
+    background-color: #fff;
+  }
+  
+  /* ---------- Logo Section ---------- */
+  .navbar .logo {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  
+  .navbar .logo-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+  }
+  
+  .navbar .logo-text .main {
+    font-weight: 800;
+    font-size: 1.25rem;
+    color: #1f1f1f;
+  }
+  
+  .navbar .logo-text .sub {
+    font-size: 0.65rem;
+    letter-spacing: 0.05em;
+    color: #888;
+  }
+  
+  /* ---------- Location Section ---------- */
+  .navbar .location {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    color: #555;
+  }
+  
+  .navbar .location span {
+    font-size: 0.8rem;
+    color: #999;
+  }
+  
+  .navbar .location button {
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    color: #222;
+    font-weight: 500;
+    transition: color 0.2s ease;
+  }
+  
+  .navbar .location button:hover {
+    color: #f24e5e;
+  }
+  
+  /* ---------- Menu Links ---------- */
+  .navbar .menu {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    font-weight: 500;
+  }
+  
+  .navbar .menu a {
+    color: #222;
+    text-decoration: none;
+    position: relative;
+    font-size: 0.95rem;
+    transition: color 0.2s ease;
+  }
+  
+  .navbar .menu a:hover {
+    color: #f24e5e;
+  }
+  
+  /* Badge (e.g., "NEW") */
+  .navbar .menu span {
+    position: absolute;
+    top: -8px;
+    right: -18px;
+    font-size: 0.55rem;
+    color: #f24e5e;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+  
+  /* ---------- Right Section (Auth / Icons) ---------- */
+  .navbar .login-btn {
+    background-color: #f24e5e;
+    color: #fff;
+    padding: 0.55rem 1.5rem;
+    border-radius: 9999px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: opacity 0.2s ease;
+  }
+  
+  .navbar .login-btn:hover {
+    opacity: 0.9;
+  }
+  
+  .nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #333;
+    font-size: 0.85rem;
+    transition: color 0.2s ease;
+  }
+  
+  .nav-item:hover {
+    color: #f24e5e;
+  }
+  
+  /* ---------- Mobile Navbar Styles ---------- */
+  .mobile-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 0.75rem;
+    color: #333;
+    transition: color 0.2s ease;
+  }
+  
+  .mobile-item:hover {
+    color: #f24e5e;
+  }
+  
+  /* Mobile top menu dropdown */
+  .mobile-menu {
+    background-color: #f9f9f9;
+    border-top: 1px solid #e5e5e5;
+  }
+  
+  .mobile-menu a {
+    display: block;
+    padding: 0.6rem 1rem;
+    color: #333;
+    font-size: 0.9rem;
+    border-bottom: 1px solid #f0f0f0;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+  }
+  
+  .mobile-menu a:hover {
+    background-color: #f4f4f4;
+    color: #f24e5e;
+  }
+  
+  /* ---------- Responsive Tweaks ---------- */
+  @media (max-width: 768px) {
+    .navbar {
+      padding: 0.75rem 1rem;
+    }
+  
+    .navbar .menu {
+      display: none;
+    }
+  
+    .navbar .login-btn {
+      font-size: 0.85rem;
+      padding: 0.5rem 1.2rem;
+    }
+  }
+  
