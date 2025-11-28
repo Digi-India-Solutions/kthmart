@@ -5,7 +5,7 @@ import { fetchSubCategories } from "@/app/redux/features/getAllCategory/category
 import { serverUrl } from "@/app/redux/features/axiosInstance";
 import CallBackImg from "../../Images/DBS/DBSLOGO.jpg";
 import Image from "next/image";
-import icon from '@/app/Images/DowloadImage/Menu.png'
+import icon from '@/app/Images/DowloadImage/menu.png'
 
 export default function Sidebar({ categoryId, onSubcategorySelect }) {
   const dispatch = useDispatch();
