@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { Parser } from "html-to-react";
+
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -502,16 +504,25 @@ export default function ProductDetails() {
   <div className="text-sm leading-relaxed">
 {book?.details && (
   <div className="text-sm leading-relaxed">
-    {htmlParser.parse(
-      book.details
-        .replace(/webkitTextStrokeWidth/g, '-webkit-text-stroke-width')
-        .replace(/WebkitTextStrokeWidth/g, '-webkit-text-stroke-width')
-        .replace(/style="([^"]*)"/g, (match, styleContent) => {
-          // Convert React-style camelCase properties into proper CSS
-          return `style="${styleContent.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase()}"`;
-        })
-    )}
-  </div>          
+  {htmlParser.parse(
+    book.details
+
+      // 1️⃣ Kill vendor-prefixed props BEFORE React sees them
+      .replace(/webkitTextStrokeWidth|WebkitTextStrokeWidth/gi, '')
+
+      // 2️⃣ Prevent React from parsing inline styles (critical fix)
+      .replace(/style="/g, 'data-style="')
+
+      // 3️⃣ Convert camelCase to normal CSS inside data-style
+      .replace(/data-style="([^"]*)"/g, (m, styles) => {
+        const fixed = styles
+          .replace(/([a-z])([A-Z])/g, '$1-$2')
+          .toLowerCase();
+        return `style="${fixed}"`;
+      })
+  )}
+</div>
+
 )}
 
   </div>

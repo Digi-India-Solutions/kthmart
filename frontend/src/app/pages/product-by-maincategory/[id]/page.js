@@ -24,7 +24,9 @@ import {
 } from "@/app/redux/wishlistSlice";
 import { serverUrl } from "@/app/redux/features/axiosInstance";
 import CallBackImg from "../../../../app/Images/DBS/DBSLOGO.jpg";
-import { fetchProductsByMainCategory, highToLow, latest, lowToHigh } from "@/app/redux/features/productByMainCategory/productByMainCategorySlice";
+import { fetchProductsByMainCategory, highToLow,
+  //  lowToHigh 
+  } from "@/app/redux/features/productByMainCategory/productByMainCategorySlice";
 
 const Page = () => {
   const dispatch = useDispatch();

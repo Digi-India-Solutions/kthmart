@@ -25,7 +25,7 @@ import Cart from "../Cart/Cart";
 import Wishlist from "../Wishlist/Wishlist";
 import CallBackImg from "../../Images/DBS/DBSLOGO.jpg";
 import {
-  handleLogout,
+  // handleLogout,
   resetState,
   updateProfileImg,
   updateUser,
@@ -285,7 +285,7 @@ export default function UserProfile() {
   };
 
   const handleLogoutFun = () => {
-    handleLogout();
+    // handleLogout();
     dispatch(resetState());
     dispatch(resetWishlistState());
     dispatch(resetCartState());
