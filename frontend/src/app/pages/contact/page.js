@@ -90,7 +90,7 @@ const Contact = () => {
                 VASANT VIHAR PHASE NO. 1, HIMMATGARH DHAKOLI, Punjab, India
               </p> */}
               <p className="font-medium mt-1">+91 9988438221</p>
-              <p className="text-sm mb-2">Mail: myorder@kthmart.com</p>
+              <p className="text-sm mb-2">Mail: myorder@goyattrading.shop</p>
 
               <div className="text-sm text-gray-600 mt-2">
                 {/* <p>

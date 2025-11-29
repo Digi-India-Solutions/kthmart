@@ -31,9 +31,9 @@ const allowedOrigins = [
   "http://localhost:3001",
    "http://localhost:3002",
   "http://192.168.166.80:3001",
-  "https://kthmart.com",
-  "https://admin.kthmart.com",
-  "https://www.kthmart.com",    
+  "https://goyattrading.shop",
+  "https://admin.goyattrading.shop",
+  "https://www.goyattrading.shop",    
 ];
     
 app.use(
