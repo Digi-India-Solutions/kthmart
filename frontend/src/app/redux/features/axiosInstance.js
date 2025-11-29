@@ -1,5 +1,5 @@
 import axios from "axios";
-export const serverUrl="https://api.goyattrading.shop"
+export const serverUrl="https://api.kthmart.com"
 // export const serverUrl = "http://localhost:11000"
 
 const axiosInstance = axios.create({
