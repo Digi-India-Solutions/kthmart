@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Parser } from "html-to-react";
+// import { Parser } from "html-to-react";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -502,31 +502,32 @@ export default function ProductDetails() {
                     <div>
                     {book?.details && (
   <div className="text-sm leading-relaxed">
-{book?.details && (
-  <div className="text-sm leading-relaxed">
-  {htmlParser.parse(
-    book.details
+    {(() => {
+      const parser = new DOMParser();
 
-      // 1️⃣ Kill vendor-prefixed props BEFORE React sees them
-      .replace(/webkitTextStrokeWidth|WebkitTextStrokeWidth/gi, '')
+      // Convert string → HTML document
+      const doc = parser.parseFromString(book.details, "text/html");
 
-      // 2️⃣ Prevent React from parsing inline styles (critical fix)
-      .replace(/style="/g, 'data-style="')
+      // Remove vendor-prefixed invalid inline styles safely
+      doc.querySelectorAll("[style]").forEach((el) => {
+        const style = el.getAttribute("style");
 
-      // 3️⃣ Convert camelCase to normal CSS inside data-style
-      .replace(/data-style="([^"]*)"/g, (m, styles) => {
-        const fixed = styles
-          .replace(/([a-z])([A-Z])/g, '$1-$2')
-          .toLowerCase();
-        return `style="${fixed}"`;
-      })
-  )}
-</div>
+        if (!style) return;
 
-)}
+        // Remove ONLY unsupported CSS props
+        const cleanedStyle = style
+          .replace(/webkit-text-stroke-width\s*:[^;]+;?/gi, "")
+          .replace(/-webkit-text-stroke-width\s*:[^;]+;?/gi, "");
 
+        el.setAttribute("style", cleanedStyle);
+      });
+
+      // Return sanitized HTML → React element
+      return htmlParser.parse(doc.body.innerHTML);
+    })()}
   </div>
 )}
+
 
                     </div>
                   </div>
