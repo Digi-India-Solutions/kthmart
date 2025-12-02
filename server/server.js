@@ -29,11 +29,11 @@ app.use(cookieParser());
 const allowedOrigins = [
   "http://localhost:3000",
   "http://localhost:3001",
-   "http://localhost:3002",
+  "http://localhost:3002",
   "http://192.168.166.80:3001",
-  "https://goyattrading.shop",
-  "https://admin.goyattrading.shop",
-  "https://www.goyattrading.shop",    
+  "https://kthmart.com",
+  "https://admin.kthmart.com",
+  "https://www.kthmart.com",    
 ];
     
 app.use(
