@@ -109,7 +109,6 @@ const Page = () => {
     if (!user && !user?.email) {
       try {
         await dispatch(addToCart(cartItem));
-
         toast.success(
           exists
             ? "Quantity updated in your cart!"

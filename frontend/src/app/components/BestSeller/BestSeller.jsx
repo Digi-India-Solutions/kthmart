@@ -425,7 +425,7 @@ const shouldHidePackage = (product, qty, index) => {
 
           <button
   onClick={() => updateQuantity(product, item.stock)}
-  className="text-pink-600 text-xs font-semibold"
+  className="text-pink-600 text-xs font-semibold cursor-pointer"
 >
   Add {item.stock}
 </button>

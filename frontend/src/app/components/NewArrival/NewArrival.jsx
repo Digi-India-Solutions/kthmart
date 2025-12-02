@@ -428,7 +428,7 @@ const NewArrival = () => {
                               onClick={() => {
                                 updateQuantity(product, Number(item.stock));
                               }}
-                              className="text-pink-600 text-xs font-semibold"
+                              className="text-pink-600 text-xs font-semibold cursor-pointer"
                             >
                               Add {item.stock}
                             </button>
