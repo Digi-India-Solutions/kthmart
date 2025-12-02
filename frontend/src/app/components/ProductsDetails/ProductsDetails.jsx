@@ -749,37 +749,60 @@ export default function ProductDetails() {
     const qty = Math.max(0, newQty);
     setQuantity(qty);
   
-    // FIND ACTIVE PACKAGE
-    const sorted = [...(book?.package || [])].sort((a, b) => a.stock - b.stock);
+    if (!book) return;
   
-    let matchedPackage = null;
-    sorted.forEach((tier) => {
-      if (qty >= tier.stock) {
-        matchedPackage = tier.stock;   // match highest package
-      }
+    // Auto-select package
+    const sorted = [...(book?.package || [])].sort((a, b) => a.stock - b.stock);
+    let matched = null;
+  
+    sorted.forEach((pkg) => {
+      if (qty >= pkg.stock) matched = pkg.stock;
     });
   
-    setSelectedPackage(matchedPackage);
+    setSelectedPackage(matched);
   
-    // AUTO UPDATE CART
+    // AUTO ADD TO CART + POPUP
     if (qty > 0) {
-      handleAddToCart({
-        ...book,
-        finalQty: qty,
-        finalPrice: getPricePerPiece(qty),
-      });
+      const pricePer = getPricePerPiece(qty);
+  
+      const cartItem = {
+        id: book._id,
+        name: book.title,
+        image: book.images?.[0],
+        price: pricePer,
+        finalPrice: pricePer,
+        quantity: qty,
+      };
+  
+      const exists = user?.email
+        ? apiCartItems.some((item) => item?.productId?._id === book._id)
+        : cartItems.some((item) => item?.id === book._id);
+  
+      if (!user?.email) {
+        dispatch(addToCart(cartItem));
+  
+        toast.success(
+          exists
+            ? "Quantity updated in your cart!"
+            : `${book.title} added to cart!`
+        );
+  
+      } else {
+        dispatch(addtoCartState({ id: book._id }));
+        dispatch(addToCartAPIThunk({ productId: book._id, quantity: qty }));
+  
+        toast.success(
+          exists
+            ? "Quantity updated in your cart!"
+            : `${book.title} added to cart!`
+        );
+      }
     }
   };
   
-  const increment = () => {
-    const newQty = quantity + 1;
-    updateQuantity(newQty); // auto select package + cart update
-  };
-  
-  const decrement = () => {
-    const newQty = Math.max(0, quantity - 1);
-    updateQuantity(newQty); // auto select package + cart update
-  };
+ const increment = () => updateQuantity(quantity + 1);
+const decrement = () => updateQuantity(quantity - 1);
+
   
   // ADD TO CART
   const handleAddToCart = (product) => {
@@ -909,43 +932,46 @@ export default function ProductDetails() {
           {/* PACKAGE UI — SAME UI, LOGIC UPDATED */}
           <div className="mb-4">
             <div className="border rounded-2xl p-4 space-y-4">
-            {
-  book?.package.length > 0 && (
-    <div className="bg-blue-50 p-3 rounded-xl space-y-2">
-      {book?.package
-        ?.sort((a, b) => a.stock - b.stock)
-        ?.map((pkg, index) => {
-          const isActive = selectedPackage === pkg.stock;
+            {book?.package?.length > 0 && (
+  <div className="bg-blue-50 p-3 rounded-xl space-y-2">
+    {book?.package
+      ?.sort((a, b) => a.stock - b.stock)
+      ?.map((pkg, index) => {
+        const activePkgIndex = getActivePackage(quantity);
+        const hide = activePkgIndex !== null && index < activePkgIndex;
+        if (hide) return null;
 
-          const highestActiveIndex = book.package
-            ?.sort((a, b) => a.stock - b.stock)
-            .reduce((acc, p, i) => (quantity >= p.stock ? i : acc), -1);
+        const isActive = activePkgIndex === index;
 
-          const hide = highestActiveIndex !== -1 && index < highestActiveIndex;
-          if (hide) return null;
-
-          return (
-            <div
-              key={index}
-              className="flex justify-between items-center pb-2 border-b last:border-none"
-            >
-              <div className="text-blue-700">
-                ₹{pkg.price}/piece for {pkg.stock}+ pcs
-              </div>
-
-              <button
-                onClick={() => updateQuantity(pkg.stock)}
-                className={`font-medium px-3 py-1 rounded flex items-center gap-1 cursor-pointer
-                  ${isActive ? "text-green-600" : "text-red-500"}`}
-              >
-                {isActive ? "✔ Selected" : `Add ${pkg.stock}`}
-              </button>
+        return (
+          <div
+            key={index}
+            className="flex justify-between items-center pb-2 border-b last:border-none"
+          >
+            <div className="text-blue-700">
+              ₹{pkg.price}/piece for {pkg.stock}+ pcs
             </div>
-          );
-        })}
-    </div>
-  )
-}
+
+            <button
+              onClick={() => {
+                // Auto set package
+                setSelectedPackage(pkg.stock);
+
+                // Update quantity
+                updateQuantity(pkg.stock);
+              }}
+              className={`font-medium px-3 py-1 rounded flex items-center gap-1 cursor-pointer ${
+                isActive ? "text-green-600" : "text-red-500"
+              }`}
+            >
+              {isActive ? "✔ Selected" : `Add ${pkg.stock}`}
+            </button>
+          </div>
+        );
+      })}
+  </div>
+)}
+
 
 
               {/* PRICE + QUANTITY */}
