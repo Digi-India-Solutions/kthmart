@@ -3,7 +3,7 @@ const nextConfig = {
   images: {
     domains: [
       "res.cloudinary.com",
-      "api.goyattrading.shop",
+      "api.kthmart.com",
       "picsum.photos",
       "api.kthmart.com",
       "https://",

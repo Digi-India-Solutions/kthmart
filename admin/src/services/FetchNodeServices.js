@@ -1,6 +1,6 @@
 import axios from "axios";
 // const serverURL = "http://localhost:11000";
-const serverURL = "https://api.goyattrading.shop";
+const serverURL = "https://api.kthmart.com";
 
 const postData = async (url, body) => {
   try {

@@ -29,7 +29,7 @@ app.use(cookieParser());
 const allowedOrigins = [
   "http://localhost:3000",
   "http://localhost:3001",
-   "http://localhost:3002",
+  "http://localhost:3002",
   "http://192.168.166.80:3001",
   "https://kthmart.com",
   "https://admin.kthmart.com",
