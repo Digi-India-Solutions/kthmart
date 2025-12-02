@@ -418,7 +418,7 @@ const NewArrival = () => {
                           }`}
                         >
                           <p className="text-xs">
-                            ₹{Number(item.price).toFixed(2)}/{item.unit} — {item.stock}+
+                            ₹{Number(item.price).toFixed(2)}/{item.unit} — {item.stock}+ {item.unit}
                           </p>
 
                           {isActive && <span className="text-pink-600 font-bold">✓</span>}

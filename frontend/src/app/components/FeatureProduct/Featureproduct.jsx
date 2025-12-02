@@ -91,14 +91,19 @@ const BestSeller = ({ productlength = 4, btnlength = 8 }) => {
     const tiers = product?.package ?? [];
     const sorted = [...tiers].sort((a, b) => Number(a.stock) - Number(b.stock));
   
-    let active = null;
+    // If quantity exactly matches a package stock → activate that package
+    const exactMatchIndex = sorted.findIndex(tier => Number(tier.stock) === qty);
+    if (exactMatchIndex !== -1) return exactMatchIndex;
   
+    // Otherwise use the normal logic
+    let active = null;
     sorted.forEach((tier, index) => {
       if (qty >= Number(tier.stock)) active = index;
     });
   
     return active;
   };
+  
 
   // 🧮 Check if package should be hidden
   const shouldHidePackage = (product, qty, index) => {
@@ -119,6 +124,8 @@ const BestSeller = ({ productlength = 4, btnlength = 8 }) => {
 
     if (newQty > 0) handleCartUpdate(product, newQty);
   };
+
+  
 
   // 🛒 Handles add or update to Redux / API cart
   const handleCartUpdate = (product, qty) => {
@@ -325,16 +332,15 @@ const BestSeller = ({ productlength = 4, btnlength = 8 }) => {
                       }`}
                     >
                       <p className="text-xs">
-                        ₹{Number(item.price).toFixed(2)}/{item.unit} — {item.stock}+
+                        ₹{Number(item.price).toFixed(2)}/{item.unit} — {item.stock}+{item.unit}
                       </p>
 
                       {isActive && <span className="text-pink-600 font-bold">✓</span>}
 
                       {!isActive && (
                         <button
-                          onClick={() => {
-                            updateQuantity(product, Number(item.stock));
-                          }}
+                        onClick={() => updateQuantity(product, Number(item.stock))}
+
                           className="text-pink-600 text-xs font-semibold"
                         >
                           Add {item.stock}

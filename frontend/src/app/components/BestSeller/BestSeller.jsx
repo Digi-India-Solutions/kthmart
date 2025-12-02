@@ -81,18 +81,21 @@ const getPricePerPc = (product, qty) => {
 // Determine active package tier
 const getActivePackage = (product, qty) => {
   const tiers = product?.package ?? [];
+  const sorted = [...tiers].sort((a, b) => Number(a.stock) - Number(b.stock));
 
+  // 1️⃣ If quantity exactly matches a package tier → that tier becomes active
+  const exact = sorted.findIndex(t => Number(t.stock) === qty);
+  if (exact !== -1) return exact;
 
-  const sorted = [...tiers].sort((a, b) => a.stock - b.stock);
-
+  // 2️⃣ Otherwise find highest matching tier
   let active = null;
-
   sorted.forEach((tier, index) => {
-    if (qty >= tier.stock) active = index;
+    if (qty >= Number(tier.stock)) active = index;
   });
 
   return active;
 };
+
 
 const shouldHidePackage = (product, qty, index) => {
   const activeIndex = getActivePackage(product, qty);
@@ -302,7 +305,7 @@ const shouldHidePackage = (product, qty, index) => {
 
         {pathname !== "/pages/bestSellerbook" && (
           <Link href="/pages/bestSellerbook">
-            <button className="view-all-btn flex items-center gap-2 bg-blue-600 text-white px-3 py-1 rounded-full hover:bg-blue-700 transition">
+            <button className="view-all-btn flex items-center gap-2  text-white px-3 py-1 rounded-full ">
               View All <ArrowRight size={16} />
             </button>
           </Link>
@@ -421,22 +424,16 @@ const shouldHidePackage = (product, qty, index) => {
           {isActive && <span className="text-pink-600 font-bold text-lg">✓</span>}
 
           <button
-            onClick={() => {
-              handleQtyChange(product._id, item.stock);
-              handleAddToCart(product);
-            }}
-            className="text-pink-600 text-xs font-semibold"
-          >
-            Add {item.stock}
-          </button>
+  onClick={() => updateQuantity(product, item.stock)}
+  className="text-pink-600 text-xs font-semibold"
+>
+  Add {item.stock}
+</button>
+
         </div>
       );
     })
-  ) : (
-    <div className="mt-2 p-2 text-xs text-gray-500 border rounded bg-gray-100 text-center">
-      No package active
-    </div>
-  )}
+  ) : ""}
 </div>
 
 
@@ -463,12 +460,12 @@ const shouldHidePackage = (product, qty, index) => {
                       </button>
 
                       {/* optional: quick add to cart using default qty 1 */}
-                      <button
+                      {/* <button
                         onClick={() => handleAddToCartButton(product)}
                         className="text-xs text-gray-600 underline"
                       >
                         Add to cart (1)
-                      </button>
+                      </button> */}
                     </div>
                   ) : (
                     <div className="flex items-center gap-3 bg-gray-100 px-3 py-2 rounded-xl">

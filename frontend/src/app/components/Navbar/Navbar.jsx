@@ -99,7 +99,7 @@ const Navbar = () => {
             </p>
           </div>
 
-          <span className="cursor-pointer font-medium">Catalogue</span>
+         <a href="/pages/categories"> <span className="cursor-pointer font-medium">Categories</span></a>
         </div>
 
         {/* Search Bar */}
